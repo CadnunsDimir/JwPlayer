@@ -1,7 +1,7 @@
 ﻿<Window x:Class="JwPlayer.Wpf.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="350" Width="525" Closing="Window_Closing">
     <Grid>
         <!--<DataGrid Name="dgMusicas" Margin="0,31,0,0" >
             
@@ -24,6 +24,10 @@
             </ListView.View>
 
         </ListView>
-        <TextBox  HorizontalAlignment="Left" Height="23" Margin="109,5,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" KeyDown="TextBox_KeyDown" KeyUp="TextBox_KeyUp"/>
+        <TextBox Name="tboxCantico" HorizontalAlignment="Left" Height="23" Margin="109,5,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" KeyDown="TextBox_KeyDown" KeyUp="TextBox_KeyUp"/>
+        <Label Content="Digite o cantico:" HorizontalAlignment="Left" Margin="10,2,0,0" VerticalAlignment="Top"/>
+        <Button Name="bntStart" Content="Start" HorizontalAlignment="Left" Margin="247,5,0,0" VerticalAlignment="Top" Width="47" Click="bntStart_Click" />
+        <Button Name="btnPause" Content="Pause" HorizontalAlignment="Left" Margin="299,6,0,0" VerticalAlignment="Top" Width="47" Click="btnPause_Click"/>
+        <Button Name="btnStop" Content="Stop" HorizontalAlignment="Left" Margin="351,6,0,0" VerticalAlignment="Top" Width="47" Click="btnStop_Click"/>
     </Grid>
 </Window>

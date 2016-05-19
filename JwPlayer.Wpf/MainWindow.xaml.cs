@@ -25,17 +25,34 @@ namespace JwPlayer.Wpf
     {
         private JwMusicasService _service;
         private List<Cantico> _lista;
+        private Mp3Player _player;
+        private static bool JaExibindoPergunta = false;
         public MainWindow()
         {
             InitializeComponent();
             _service = new JwMusicasService();
             dgMusicas.ItemsSource = _lista = _service.GetCanticos();
+            _player = new Mp3Player();
         }
 
         protected void ListItem_dbClick(object sender, MouseButtonEventArgs e)
         {
             var cantico = (Cantico)((ListViewItem)e.Source).Content;
-            MessageBox.Show(cantico.Titulo);
+            tboxCantico.Text = cantico.Numero.ToString();
+            ExibirPerguntaParaTocar(cantico);
+        }
+
+        private void ExibirPerguntaParaTocar(Cantico cantico)
+        {
+            if (!JaExibindoPergunta)
+            {
+                JaExibindoPergunta = true;
+                if (MessageBox.Show(cantico.Numero + " -> " + cantico.Titulo, "Cântico selecionado", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+                {
+                    _player.SetStream(cantico.LinkToDownload);
+                }
+                JaExibindoPergunta = false;
+            }
         }
 
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
@@ -55,14 +72,10 @@ namespace JwPlayer.Wpf
             
             var tbox = (TextBox)sender;
             tbox.Text = tbox.Text.Trim();
-            
+            tbox.IsReadOnly = true;
             if (e.Key == Key.Return && tbox.Text.ContainsOnlyNumbers())
             {
-                var cantico = _lista.FirstOrDefault(x => x.Numero == tbox.Text.ToInt());
-                if (cantico != null)
-                {
-                    MessageBox.Show(cantico.Titulo);
-                }
+                TocarPrimeiraOcorrencia(tbox.Text.ToInt());
             }
             else if (tbox.Text.ContainsOnlyNumbers())
             {
@@ -72,6 +85,50 @@ namespace JwPlayer.Wpf
             {
                 e.Handled = false;
             }
+            tbox.IsReadOnly = false;
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            _player.StopIfPlaying();
+        }
+
+        private void bntStart_Click(object sender, RoutedEventArgs e)
+        {
+            if (tboxCantico.Text.ContainsOnlyNumbers())
+            {
+                TocarPrimeiraOcorrencia(tboxCantico.Text.ToInt());
+            }
+        }
+
+        private void TocarPrimeiraOcorrencia(int numero)
+        {
+            var cantico = _lista.FirstOrDefault(x => x.Numero == numero);
+
+            if (cantico != null)
+            {
+                ExibirPerguntaParaTocar(cantico);
+            }
+        }
+
+        private void btnPause_Click(object sender, RoutedEventArgs e)
+        {
+            if (btnPause.Content.ToString() == "Pause")
+            {
+                _player.Pause();
+                btnPause.Content = "Resume";
+            }
+            else if (btnPause.Content.ToString() == "Resume")
+            {
+                _player.Resume();
+                btnPause.Content = "Pause";
+            }
+            
+        }
+
+        private void btnStop_Click(object sender, RoutedEventArgs e)
+        {
+            _player.StopIfPlaying();
         }
     }
 }
