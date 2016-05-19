@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using JwPlayer.Models;
 using RestSharp;
+using JwPlayer.Utils;
 namespace JwPlayer
 {
     class Program
@@ -36,11 +37,5 @@ namespace JwPlayer
         }
     }
 
-    static class Extensions
-    {
-        public static int ToInt(this string obj)
-        {
-            return int.Parse(obj);
-        }
-    }
+    
 }

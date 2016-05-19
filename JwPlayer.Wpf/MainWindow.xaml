@@ -3,6 +3,27 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        
+        <!--<DataGrid Name="dgMusicas" Margin="0,31,0,0" >
+            
+        </DataGrid>-->
+        <Grid.Resources>
+            <Style x:Key="itemstyle" TargetType="{x:Type ListViewItem}">
+                <EventSetter Event='MouseDoubleClick' Handler='ListItem_dbClick'/>
+            </Style>
+        </Grid.Resources>
+        <ListView x:Name="dgMusicas" Height="254" Canvas.Left="10" Canvas.Top="56" ItemContainerStyle="{StaticResource itemstyle}" Margin="0,33,10,33">
+            <ListView.View>
+                <GridView >
+                    <GridViewColumn Width="50" Header="Numero"  DisplayMemberBinding="{Binding Numero}"  />
+                    <GridViewColumn Width="270" Header="Titulo"  DisplayMemberBinding="{Binding Titulo}"  />
+                    <GridViewColumn Width="80" Header="Versao"  DisplayMemberBinding="{Binding Versao}"  />
+                    <!--<GridViewColumn Width="100" Header="Req n°"  DisplayMemberBinding="{Binding WORKORDERID}"  />
+                    <GridViewColumn Width="100" Header="Situação"  DisplayMemberBinding="{Binding STATUS}"  />
+                    <GridViewColumn Width="200" Header="Solicitante"  DisplayMemberBinding="{Binding REQUESTER}"  />-->
+                </GridView>
+            </ListView.View>
+
+        </ListView>
+        <TextBox  HorizontalAlignment="Left" Height="23" Margin="109,5,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" KeyDown="TextBox_KeyDown" KeyUp="TextBox_KeyUp"/>
     </Grid>
 </Window>

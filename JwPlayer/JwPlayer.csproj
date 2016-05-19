@@ -49,10 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Utils\Extesions.cs" />
     <Compile Include="Models\Cantico.cs" />
     <Compile Include="Models\CanticoVersao.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\JwMusicasService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
