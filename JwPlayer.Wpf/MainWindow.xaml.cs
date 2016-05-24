@@ -31,7 +31,7 @@ namespace JwPlayer.Wpf
         {
             InitializeComponent();
             _service = new JwMusicasService();
-            dgMusicas.ItemsSource = _lista = _service.GetCanticos();
+            dgMusicas.ItemsSource = _lista = _service.GetTodosCanticos();
             _player = new Mp3Player();
         }
 
